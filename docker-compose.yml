@@ -1,0 +1,4 @@
+web:
+  image: pcblog.cn:80/guide-docker-dev-local/nginx:${TAG}
+  ports:
+    - "60001:80"
