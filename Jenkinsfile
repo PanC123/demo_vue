@@ -16,6 +16,9 @@ node {
         cd dist && zip -r demo_vue.zip *
         """
     }
+    stage ('archiveArtifacts') {
+        archiveArtifacts artifacts: 'demo_vue.zip', followSymlinks: false
+    }
 
     stage ('Docker login') {
         sh 'docker login -u jfrog -p JFrog@123 pcblog.cn:80'
