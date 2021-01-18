@@ -3,7 +3,9 @@ node {
     def rtDocker = Artifactory.docker server: server
     def buildInfo = Artifactory.newBuildInfo()
     def ARTIFACTORY_DOCKER_REGISTRY='pcblog.cn:80/guide-docker-dev-local'
-
+    environment {
+        DOCKER_REGISTRY_CRED = credentials('dockerRegistry')
+    }
     stage ('Clone') {
         git url: 'https://github.com/PanC123/demo_vue.git'
     }
@@ -21,7 +23,7 @@ node {
     }
 
     stage ('Docker login') {
-        sh 'docker login -u jfrog -p JFrog@123 pcblog.cn:80'
+        sh "docker login -u $DOCKER_REGISTRY_CRED_USR -p $DOCKER_REGISTRY_CRED_PSW pcblog.cn:80"
     }
 
     stage ('Build docker image') {
@@ -29,7 +31,7 @@ node {
     }
 
     stage ('Push image to Artifactory') {
-        buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + '/nginx', 'guide-docker-dev-local'
+        buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + '/nginx:${env.BUILD_ID}', 'guide-docker-dev-local'
     }
 
     stage ('Publish build info') {
