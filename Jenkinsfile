@@ -22,11 +22,11 @@ node {
     }
 
     stage ('Build docker image') {
-        docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/tomcat:jdk8-openjdk-slim', '.')
+        docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/nginx', '.')
     }
 
     stage ('Push image to Artifactory') {
-        buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + '/tomcat:jdk8-openjdk-slim', 'guide-docker-dev-local'
+        buildInfo = rtDocker.push ARTIFACTORY_DOCKER_REGISTRY + '/nginx', 'guide-docker-dev-local'
     }
 
     stage ('Publish build info') {
