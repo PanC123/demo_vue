@@ -22,7 +22,7 @@ node {
     }
 
     stage ('Build docker image') {
-        docker.build(ARTIFACTORY_DOCKER_REGISTRY + '/nginx', '.')
+        docker.build(ARTIFACTORY_DOCKER_REGISTRY + "/nginx:${env.BUILD_ID}", ".")
     }
 
     stage ('Push image to Artifactory') {
