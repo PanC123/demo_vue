@@ -1,4 +1,6 @@
-node {
+Jenkinsfile (Declarative Pipeline)
+pipeline {
+    agent any 
     def server = Artifactory.server 'art1'
     def rtDocker = Artifactory.docker server: server
     def buildInfo = Artifactory.newBuildInfo()
