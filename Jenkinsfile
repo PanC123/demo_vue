@@ -17,7 +17,7 @@ node {
         """
     }
     stage ('archiveArtifacts') {
-        archiveArtifacts artifacts: 'demo_vue.zip', followSymlinks: false
+        archiveArtifacts artifacts: 'dist/demo_vue.zip', followSymlinks: false
     }
 
     stage ('Docker login') {
